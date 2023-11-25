@@ -1,0 +1,13 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: efs-sc
+provisioner: efs.csi.aws.com
+parameters:
+  provisioningMode: efs-ap
+  fileSystemId: FILE_SYSTEM_ID # change everytime when I create new eks cluster by terraform provisioning
+  directoryPerms: "777"
+  basePath: "/dynamic_provisioning"
+  subPathPattern: ""
+  ensureUniqueDirectory: "false" # For sharing data between ASG jenkins pods
+  reuseAccessPoint: "false" # optional
