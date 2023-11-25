@@ -24,7 +24,9 @@ spec:
             - name: MYSQL_ROOT_PASSWORD
               value: "password"
             - name: MYSQL_DATABASE
-              value: "blog"
+              value: "blogdb"
+            - name: TZ
+              value: Asia/Seoul
       volumes:
         - name: database-volume
           hostPath:
