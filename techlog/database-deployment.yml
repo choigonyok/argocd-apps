@@ -17,9 +17,9 @@ spec:
           image: achoistic98/blog_database:latest
           ports:
             - containerPort: 3306
-          volumeMounts:
-            - name: database-volume
-              mountPath: /var/lib/mysql
+          # volumeMounts:
+          #   - name: database-volume
+          #     mountPath: /var/lib/mysql
           env:
             - name: MYSQL_ROOT_PASSWORD
               value: "password"
@@ -27,7 +27,7 @@ spec:
               value: "blogdb"
             - name: TZ
               value: Asia/Seoul
-      volumes:
-        - name: database-volume
-          hostPath:
-            path: /volumes # Replace with the actual path on your host machine
+      # volumes:
+      #   - name: database-volume
+      #     hostPath:
+      #       path: /volumes
