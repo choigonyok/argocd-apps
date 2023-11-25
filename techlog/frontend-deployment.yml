@@ -18,6 +18,9 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 3000
+        env:
+        - name: REACT_APP_HOST
+          value: "http://localhost"
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
@@ -27,8 +30,6 @@ spec:
                 matchLabels:
                   app: frontend
               topologyKey: "kubernetes.io/hostname"
-      env:
-        - name: REACT_APP_HOST
-          value: "http://localhost"
+
         # - name: REACT_APP_HOST # prod
         #   value: "https://www.choigonyok.com" # prod
