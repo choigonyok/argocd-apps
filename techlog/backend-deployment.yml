@@ -15,13 +15,12 @@ spec:
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-              - key: "app"
-                operator: In
-                values:
-                - backend
-            topologyKey: "kubernetes.io/hostname"
+          - weight: 50
+            podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app: backend
+              topologyKey: "kubernetes.io/hostname"
       containers:
       - name: backend
         image: achoistic98/blog_backend:latest
@@ -32,13 +31,13 @@ spec:
             mountPath: /assets
         env:
         - name: DB_HOST
-          value: database-service
+          value: database
         - name: ORIGIN
-          value: "http://frontend-service"
+          value: "http://frontend"
         - name: DB_DRIVER
           value: mysql
         - name: HOST
-          value: <DOMAIN FOR COOKIE>
+          value: localhost
         - name: DB_USER
           value: root
         - name: DB_PASSWORD
