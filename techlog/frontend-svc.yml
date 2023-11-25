@@ -9,4 +9,6 @@ spec:
     - protocol: TCP
       port: 3000
       targetPort: 3000
-  type: ClusterIP
+      nodePort: 31000 # dev
+  type: NodePort # dev
+  # type: ClusterIP # prod

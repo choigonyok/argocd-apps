@@ -30,3 +30,5 @@ spec:
       env:
         - name: REACT_APP_HOST
           value: "http://localhost"
+        # - name: REACT_APP_HOST # prod
+        #   value: "https://www.choigonyok.com" # prod
