@@ -12,21 +12,19 @@ spec:
       labels:
         app: frontend
     spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: "app"
+                operator: In
+                values:
+                - frontend
+            topologyKey: "kubernetes.io/hostname"
       containers:
       - name: frontend
         image: achoistic98/blog_frontend:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 3000
-      affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 50
-            podAffinityTerm:
-              labelSelector:
-                matchLabels:
-                  app: frontend
-              topologyKey: "kubernetes.io/hostname"
-
-        # - name: REACT_APP_HOST # prod
-        #   value: "https://www.choigonyok.com" # prod

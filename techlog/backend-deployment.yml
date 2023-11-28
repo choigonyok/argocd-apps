@@ -14,21 +14,19 @@ spec:
     spec:
       affinity:
         podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 50
-            podAffinityTerm:
-              labelSelector:
-                matchLabels:
-                  app: backend
-              topologyKey: "kubernetes.io/hostname"
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: "app"
+                operator: In
+                values:
+                - backend
+            topologyKey: "kubernetes.io/hostname"
       containers:
       - name: backend
         image: achoistic98/blog_backend:latest
         ports:
         - containerPort: 8080
-        volumeMounts:
-          - name: backend-volume
-            mountPath: /assets
         env:
         - name: DB_HOST
           value: database
@@ -37,18 +35,14 @@ spec:
         - name: DB_DRIVER
           value: mysql
         - name: HOST
-          value: localhost
+          value: www.choigonyok.com
         - name: DB_USER
           value: root
         - name: DB_PASSWORD
           value: password
         - name: DB_NAME
-          value: blog
+          value: blogdb
         - name: BLOG_ID
           value: choigonyok
         - name: BLOG_PW
           value: devops
-      volumes:
-        - name: backend-volume        
-          hostPath:
-            path: /volumes
