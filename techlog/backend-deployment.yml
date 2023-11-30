@@ -29,7 +29,7 @@ spec:
         - containerPort: 8080
         env:
         - name: DB_HOST
-          value: database
+          value: mysql-ha-haproxy:3306
         - name: ORIGIN
           value: "http://frontend"
         - name: DB_DRIVER
