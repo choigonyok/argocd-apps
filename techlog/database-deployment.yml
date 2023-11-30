@@ -13,6 +13,16 @@ spec:
       labels:
         app: database
     spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: "app"
+                operator: In
+                values:
+                - database
+            topologyKey: "kubernetes.io/hostname"
       containers:
         - name: database
           image: achoistic98/blog_database:latest
