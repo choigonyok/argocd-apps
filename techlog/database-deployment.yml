@@ -1,114 +1,147 @@
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: database
+# spec:
+#   selector:
+#     matchLabels:
+#       app: database
+#       ha: one
+#   template:
+#     metadata:
+#       labels:
+#         app: database
+#         ha: one
+#     spec:
+#       affinity:
+#         podAntiAffinity:
+#           requiredDuringSchedulingIgnoredDuringExecution:
+#           - labelSelector:
+#               matchExpressions:
+#               - key: "app"
+#                 operator: In
+#                 values:
+#                 - database
+#             topologyKey: "kubernetes.io/hostname"
+#       containers:
+#         - name: database
+#           image: achoistic98/blog_database:latest
+#           ports:
+#             - containerPort: 3306
+#           volumeMounts:
+#             - name: database-volume
+#               mountPath: /var/lib/mysql
+#           env:
+#             - name: MYSQL_ROOT_PASSWORD
+#               value: "password"
+#             - name: MYSQL_DATABASE
+#               value: "blogdb"
+#       volumes:
+#         - name: database-volume
+#           hostPath:
+#             path: /volumes # Replace with the actual path on your host machine
+# ---
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: database
+# spec:
+#   selector:
+#     matchLabels:
+#       app: database
+#       ha: two
+#   template:
+#     metadata:
+#       labels:
+#         app: database
+#         ha: two
+#     spec:
+#       affinity:
+#         podAntiAffinity:
+#           requiredDuringSchedulingIgnoredDuringExecution:
+#           - labelSelector:
+#               matchExpressions:
+#               - key: "app"
+#                 operator: In
+#                 values:
+#                 - database
+#             topologyKey: "kubernetes.io/hostname"
+#       containers:
+#         - name: database
+#           image: achoistic98/blog_database:latest
+#           ports:
+#             - containerPort: 3306
+#           volumeMounts:
+#             - name: database-volume
+#               mountPath: /var/lib/mysql
+#           env:
+#             - name: MYSQL_ROOT_PASSWORD
+#               value: "password"
+#             - name: MYSQL_DATABASE
+#               value: "blogdb"
+#       volumes:
+#         - name: database-volume
+#           hostPath:
+#             path: /volumes # Replace with the actual path on your host machine
+# ---
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: database
+# spec:
+#   selector:
+#     matchLabels:
+#       app: database
+#       ha: three
+#   template:
+#     metadata:
+#       labels:
+#         app: database
+#         ha: three
+#     spec:
+#       affinity:
+#         podAntiAffinity:
+#           requiredDuringSchedulingIgnoredDuringExecution:
+#           - labelSelector:
+#               matchExpressions:
+#               - key: "app"
+#                 operator: In
+#                 values:
+#                 - database
+#             topologyKey: "kubernetes.io/hostname"
+#       containers:
+#         - name: database
+#           image: achoistic98/blog_database:latest
+#           ports:
+#             - containerPort: 3306
+#           volumeMounts:
+#             - name: database-volume
+#               mountPath: /var/lib/mysql
+#           env:
+#             - name: MYSQL_ROOT_PASSWORD
+#               value: "password"
+#             - name: MYSQL_DATABASE
+#               value: "blogdb"
+#       volumes:
+#         - name: database-volume
+#           hostPath:
+#             path: /volumes # Replace with the actual path on your host machine
+
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: database
+  name: mysql-ha-
 spec:
+  serviceName: mysql-ha-
+  replicas: 3
   selector:
     matchLabels:
       app: database
-      ha: one
   template:
     metadata:
       labels:
         app: database
-        ha: one
     spec:
-      affinity:
-        podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-              - key: "app"
-                operator: In
-                values:
-                - database
-            topologyKey: "kubernetes.io/hostname"
-      containers:
-        - name: database
-          image: achoistic98/blog_database:latest
-          ports:
-            - containerPort: 3306
-          volumeMounts:
-            - name: database-volume
-              mountPath: /var/lib/mysql
-          env:
-            - name: MYSQL_ROOT_PASSWORD
-              value: "password"
-            - name: MYSQL_DATABASE
-              value: "blogdb"
-      volumes:
-        - name: database-volume
-          hostPath:
-            path: /volumes # Replace with the actual path on your host machine
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: database
-spec:
-  selector:
-    matchLabels:
-      app: database
-      ha: two
-  template:
-    metadata:
-      labels:
-        app: database
-        ha: two
-    spec:
-      affinity:
-        podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-              - key: "app"
-                operator: In
-                values:
-                - database
-            topologyKey: "kubernetes.io/hostname"
-      containers:
-        - name: database
-          image: achoistic98/blog_database:latest
-          ports:
-            - containerPort: 3306
-          volumeMounts:
-            - name: database-volume
-              mountPath: /var/lib/mysql
-          env:
-            - name: MYSQL_ROOT_PASSWORD
-              value: "password"
-            - name: MYSQL_DATABASE
-              value: "blogdb"
-      volumes:
-        - name: database-volume
-          hostPath:
-            path: /volumes # Replace with the actual path on your host machine
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: database
-spec:
-  selector:
-    matchLabels:
-      app: database
-      ha: three
-  template:
-    metadata:
-      labels:
-        app: database
-        ha: three
-    spec:
-      affinity:
-        podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-              - key: "app"
-                operator: In
-                values:
-                - database
-            topologyKey: "kubernetes.io/hostname"
       containers:
         - name: database
           image: achoistic98/blog_database:latest
