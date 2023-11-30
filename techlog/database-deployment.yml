@@ -130,9 +130,9 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: mysql-ha-
+  name: mysql-ha
 spec:
-  serviceName: mysql-ha-
+  serviceName: mysql-ha
   replicas: 3
   selector:
     matchLabels:
