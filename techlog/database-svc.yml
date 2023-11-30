@@ -4,8 +4,7 @@ metadata:
   name: mysql-ha-0
 spec:
   selector:
-    app: database
-    ha: one
+    statefulset.kubernetes.io/pod-name: mysql-ha-0
   ports:
     - protocol: TCP
       port: 3306
@@ -18,8 +17,7 @@ metadata:
   name: mysql-ha-1
 spec:
   selector:
-    app: database
-    ha: two
+    statefulset.kubernetes.io/pod-name: mysql-ha-1
   ports:
     - protocol: TCP
       port: 3306
@@ -32,8 +30,7 @@ metadata:
   name: mysql-ha-2
 spec:
   selector:
-    app: database
-    ha: three
+    statefulset.kubernetes.io/pod-name: mysql-ha-2
   ports:
     - protocol: TCP
       port: 3306
