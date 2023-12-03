@@ -1,3 +1,15 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: init-job-for-backend
+spec:
+  template:
+    spec:
+      containers:
+      - name: init-container
+        image: achoistic98/blog_init:latest
+  completions: 1
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -32,8 +44,6 @@ spec:
           value: mysql-ha-haproxy:3306
         - name: DB_HOST_WRITE
           value: mysql-ha-0
-        - name: ORIGIN
-          value: "http://frontend"
         - name: DB_DRIVER
           value: mysql
         - name: HOST
@@ -48,3 +58,9 @@ spec:
           value: choigonyok
         - name: BLOG_PW
           value: devops
+        # - name: AWS_SECRET_KEY
+        #   value: 
+        # - name: AWS_ACCESS_KEY
+        #   value: 
+        # - name: GITHUB_TOKEN
+        #   value: 
