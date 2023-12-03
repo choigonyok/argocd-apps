@@ -66,17 +66,17 @@ spec:
           [[ $HOSTNAME =~ -([0-9]+)$ ]] || exit 1
           ordinal=${BASH_REMATCH[1]}
           if [[ $ordinal -eq 0 ]]; then
-            cp /etc/mysql/conf.d/mysql-master.cnf /mnt/mysql.cnf
-            cp /docker-entrypoint-initdb.d/init-master.sql /mnt/init.sql
+            cp /cfg/mysql-master.cnf /mnt/cfg/mysql.cnf
+            cp /cfg/init-master.sql /mnt/init/init.sql
           else
-            cp /etc/mysql/conf.d/mysql-slave.cnf /mnt/mysql.cnf
-            cp /docker-entrypoint-initdb.d/init-slave.sql /mnt/init.sql
+            cp /cfg/mysql-slave.cnf /mnt/cfg/mysql.cnf
+            cp /cfg/init-slave.sql /mnt/init/init.sql
           fi
         volumeMounts:
         - name: master-slave-cfg
-          mountPath: /mnt/mysql.cnf
+          mountPath: /mnt/cfg
         - name: master-slave-init
-          mountPath: /mnt/init.sql
+          mountPath: /mnt/init
       containers:
         - name: database
           image: mysql:latest
@@ -100,7 +100,7 @@ spec:
             path: /volumes # Replace with the actual path on your host machine
         - name: master-slave-cfg
           hostPath:
-            path: /cfg/mysql.cnf
+            path: /volumes/cfg
         - name: master-slave-init
           hostPath:
-            path: /cfg/init.sql
+            path: /volumes/init
