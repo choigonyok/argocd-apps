@@ -46,9 +46,3 @@ spec:
           value: choigonyok
         - name: BLOG_PW
           value: devops
-        - name: GITHUB_TOKEN
-          value: "ww"
-        - name: AWS_ACCESS_KEY
-          value: "ww"
-        - name: AWS_SECRET_KEY
-          value: "ww"
