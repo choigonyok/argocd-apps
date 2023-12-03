@@ -74,9 +74,9 @@ spec:
             fi
           volumeMounts:
             - name: master-slave-cfg
-              mountPath: /mnt/cfg/mysql.cnf
+              mountPath: /mnt/cfg/
             - name: master-slave-init
-              mountPath: /mnt/init/init.sql
+              mountPath: /mnt/init/
       containers:
         - name: database
           image: mysql:latest
