@@ -47,8 +47,8 @@ spec:
         - name: BLOG_PW
           value: devops
         - name: GITHUB_TOKEN
-          value: -
+          value: "ww"
         - name: AWS_ACCESS_KEY
-          value: -
+          value: "ww"
         - name: AWS_SECRET_KEY
-          value: -
+          value: "ww"
