@@ -107,19 +107,20 @@ spec:
           hostPath:
             path: /volumes/init
 
-# CREATE USER 'slave'@'%' IDENTIFIED BY 'password';
-# GRANT REPLICATION SLAVE ON *.* TO 'slave'@'%';
+# CREATE USER 'replicas'@'%' IDENTIFIED BY 'password';
+# GRANT REPLICATION SLAVE ON *.* TO 'replicas'@'%';
 # FLUSH PRIVILEGES;
 # show master status;
 
-# // file, position 값 복사
+# # //flush hosts;
+# # // file, position 값 복사
 
 
-# STOP REPLICA IO_THREAD FOR CHANNEL ''
-# CHANGE MASTER TO MASTER_HOST='172.20.99.131', MASTER_PORT=3306, MASTER_USER='slave', MASTER_PASSWORD='password', MASTER_LOG_FILE='mysql-log.000003', MASTER_LOG_POS=859;
+# STOP REPLICA IO_THREAD FOR CHANNEL '';
+# CHANGE MASTER TO MASTER_HOST='172.20.28.53', MASTER_PORT=3306, MASTER_USER='replicas', MASTER_PASSWORD='password', MASTER_LOG_FILE='mysql-log.000003', MASTER_LOG_POS=2183799, GET_MASTER_PUBLIC_KEY=1;
 # start slave;
 
-# mysql -u slave -ppassword
+# # mysql -u slave -ppassword
 # //show slave status\G;
 # //show processlist\G;
 
