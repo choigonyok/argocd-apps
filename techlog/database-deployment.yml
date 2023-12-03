@@ -55,8 +55,6 @@ spec:
       labels:
         app: database
     spec:
-      securityContext: # .spec level securityContext
-        fsGroup: 1000
       initContainers:
         - name: init-mysql
           image: achoistic98/blog_mysqls:latest
@@ -76,17 +74,15 @@ spec:
             fi
           volumeMounts:
             - name: master-slave-cfg
-              mountPath: /mnt/cfg
+              mountPath: /mnt/cfg/mysql.cnf
             - name: master-slave-init
-              mountPath: /mnt/init
+              mountPath: /mnt/init/init.sql
       containers:
         - name: database
           image: mysql:latest
           ports:
             - containerPort: 3306
           volumeMounts:
-          - name: database-volume
-            mountPath: /var/lib/mysql
           - name: master-slave-cfg
             mountPath: /etc/mysql/conf.d
           - name: master-slave-init
