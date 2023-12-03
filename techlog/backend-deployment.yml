@@ -1,15 +1,3 @@
-apiVersion: batch/v1
-kind: Job
-metadata:
-  name: init-job-for-backend
-spec:
-  template:
-    spec:
-      containers:
-      - name: init-container
-        image: achoistic98/blog_init:latest
-  completions: 1
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -24,16 +12,9 @@ spec:
       labels:
         app: backend
     spec:
-      affinity:
-        podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-              - key: "app"
-                operator: In
-                values:
-                - backend
-            topologyKey: "kubernetes.io/hostname"
+      initContainers:
+        - name: init-backend
+          image: achoistic98/blog_init:latest
       containers:
       - name: backend
         image: achoistic98/blog_backend:latest
@@ -64,3 +45,13 @@ spec:
         #   value: 
         # - name: GITHUB_TOKEN
         #   value: 
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: "app"
+                operator: In
+                values:
+                - backend
+            topologyKey: "kubernetes.io/hostname"
