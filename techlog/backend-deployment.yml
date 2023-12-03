@@ -8,8 +8,8 @@ spec:
       containers:
       - name: init-container
         image: achoistic98/blog_init:latest
+      restartPolicy: Never
   completions: 1
-  restartPolicy: Never
 ---
 apiVersion: apps/v1
 kind: Deployment
