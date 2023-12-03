@@ -8,11 +8,6 @@ spec:
       containers:
       - name: init-container
         image: achoistic98/blog_init:latest
-        env:
-        - name: DB_PASSWORD
-          value: password
-        - name: DB_NAME
-          value: blogdb
       restartPolicy: Never
   completions: 1
 ---
