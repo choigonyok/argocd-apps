@@ -60,9 +60,6 @@ spec:
       initContainers:
       - name: init-mysql
         image: achoistic98/blog_mysqls:latest
-        securityContext:
-          runAsUser: 1000
-          runAsGroup: 1000
         command:
         - bash
         - "-c"
@@ -113,14 +110,14 @@ spec:
           hostPath:
             path: /volumes/init
 
-# CREATE USER 'test1'@'%' IDENTIFIED BY 'password';
-# GRANT REPLICATION SLAVE ON *.* TO 'test1'@'%';
+# CREATE USER 'slave'@'%' IDENTIFIED BY 'password';
+# GRANT REPLICATION SLAVE ON *.* TO 'slave'@'%';
 # FLUSH PRIVILEGES;
 # show master status;
 
 # // file, position 값 복사
 
-# CHANGE MASTER TO MASTER_HOST='172.20.99.131', MASTER_PORT=3306, MASTER_USER='test1', MASTER_PASSWORD='password', MASTER_LOG_FILE='mysql-log.000001', MASTER_LOG_POS=1724;
+# CHANGE MASTER TO MASTER_HOST='172.20.99.131', MASTER_PORT=3306, MASTER_USER='slave', MASTER_PASSWORD='password', MASTER_LOG_FILE='mysql-log.000001', MASTER_LOG_POS=1724;
 # start slave;
 
 # //show slave status\G;
