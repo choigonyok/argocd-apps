@@ -25,9 +25,6 @@ spec:
       labels:
         app: backend
     spec:
-      # initContainers:
-      #   - name: init-backend
-      #     image: achoistic98/blog_mysqls:latest
       containers:
       - name: backend
         image: achoistic98/blog_backend:latest
