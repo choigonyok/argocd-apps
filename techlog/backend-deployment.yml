@@ -9,6 +9,7 @@ spec:
       - name: init-container
         image: achoistic98/blog_init:latest
   completions: 1
+  restartPolicy: Never
 ---
 apiVersion: apps/v1
 kind: Deployment
