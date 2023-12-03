@@ -96,6 +96,10 @@ spec:
           value: "password"
         - name: MYSQL_DATABASE
           value: "blogdb"
+        - name: MYSQL_USER
+          value: "slave"
+        - name: MYSQL_PASSWORD
+          value: "password"
       volumes:
         - name: database-volume
           hostPath:
@@ -114,6 +118,7 @@ spec:
 
 # // file, position 값 복사
 
+# mysql -u 
 # CHANGE MASTER TO MASTER_HOST='172.20.99.131', MASTER_PORT=3306, MASTER_USER='slave', MASTER_PASSWORD='password', MASTER_LOG_FILE='mysql-log.000001', MASTER_LOG_POS=1724;
 # start slave;
 
