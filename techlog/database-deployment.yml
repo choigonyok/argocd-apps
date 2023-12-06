@@ -24,11 +24,11 @@ spec:
             [[ $HOSTNAME =~ -([0-9]+)$ ]] || exit 1
             ordinal=${BASH_REMATCH[1]}
             if [[ $ordinal -eq 0 ]]; then
-              cp /cfg/mysql-master.cnf /mnt/cfg/mysql.cnf
-              cp /cfg/init-master.sql /mnt/init/init.sql
+              cp /cfg/mysql-master.cnf /mnt/cfg/mysql-master.cnf
+              cp /cfg/init-master.sql /mnt/init/init-master.sql
             else
-              cp /cfg/mysql-slave.cnf /mnt/cfg/mysql.cnf
-              cp /cfg/init-slave.sql /mnt/init/init.sql
+              cp /cfg/mysql-slave.cnf /mnt/cfg/mysql-slave.cnf
+              cp /cfg/init-slave.sql /mnt/init/init-slave.sql
             fi
           volumeMounts:
             - name: master-slave-cfg
