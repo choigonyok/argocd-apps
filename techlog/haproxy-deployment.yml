@@ -24,7 +24,7 @@ spec:
             topologyKey: "kubernetes.io/hostname"
       containers:
       - name: haproxy
-        image: achoistic98/blog_haproxy:latest
+        image: achoistic98/blog_haproxy_mysql:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 9000
@@ -57,7 +57,7 @@ spec:
             topologyKey: "kubernetes.io/hostname"
       containers:
       - name: haproxy-jenkins
-        image: achoistic98/blog_haproxy:latest
+        image: achoistic98/blog_haproxy_jenkins:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 9000
