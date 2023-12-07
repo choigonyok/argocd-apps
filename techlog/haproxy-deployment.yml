@@ -29,3 +29,36 @@ spec:
         ports:
         - containerPort: 9000
         - containerPort: 3306
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkins-ha-haproxy
+  namespace: devops-system
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: haproxy-jenkins
+  template:
+    metadata:
+      labels:
+        app: haproxy-jenkins
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: "app"
+                operator: In
+                values:
+                - haproxy-jenkins
+            topologyKey: "kubernetes.io/hostname"
+      containers:
+      - name: haproxy-jenkins
+        image: achoistic98/blog_haproxy:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 9000
+        - containerPort: 8080

@@ -15,3 +15,22 @@ spec:
       port: 80
       targetPort: 9000
   type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins-ha-haproxy
+  namespace: devops-system
+spec:
+  selector:
+    app: haproxy-jenkins
+  ports:
+    - name: forwarding
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+    - name: ui
+      protocol: TCP
+      port: 80
+      targetPort: 9000
+  type: ClusterIP
